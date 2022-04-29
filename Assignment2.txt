@@ -1,0 +1,193 @@
+Binary Search 
+
+ary = [0, 4, 7, 10, 12]
+ary.bsearch {|x| x >=   4 } #=> 4
+ary.bsearch {|x| x >=   6 } #=> 7
+ary.bsearch {|x| x >=  -1 } #=> 0
+ary.bsearch {|x| x >= 100 } #=> nil
+
+*****************************************
+Linear search
+
+def linear_search(array, key)
+  if array.index(key).nil?
+    return -1
+  else
+    return "#{key} at index #{array.index(key)}"
+  end
+end
+
+
+arr = [7, 6, 25, 19, 8, 14, 3, 16, 2, 0]
+key = 3
+p linear_search(arr, key)
+***************************************************
+
+Jump search 
+
+def jump_search array, item 
+n = array.size 
+i = 0
+ m = Math.sqrt n 
+while array[m] <= item && m < n do 
+i = m 
+m += Math.sqrt n 
+return -1 
+if m > n - 1 end start = i while start < m do return x if a[x] == item start += 1 end -1
+end
+
+***********************************************************************
+Quick sort
+ 
+def quicksort(array, from=0, to=nil)
+    if to == nil
+        # Sort the whole array, by default
+        to = array.count - 1
+    end
+
+    if from >= to
+        # Done sorting
+        return
+    end
+
+    # Take a pivot value, at the far left
+    pivot = array[from]
+
+    # Min and Max pointers
+    min = from
+    max = to
+
+    # Current free slot
+    free = min
+
+    while min < max
+        if free == min # Evaluate array[max]
+            if array[max] <= pivot # Smaller than pivot, must move
+                array[free] = array[max]
+                min += 1
+                free = max
+            else
+                max -= 1
+            end
+        elsif free == max # Evaluate array[min]
+            if array[min] >= pivot # Bigger than pivot, must move
+                array[free] = array[min]
+                max -= 1
+                free = min
+            else
+                min += 1
+            end
+        else
+            raise "Inconsistent state"
+        end
+    end
+
+    array[free] = pivot
+
+    quicksort array, from, free - 1
+    quicksort array, free + 1, to
+end
+*************************************************
+Merge Sort 
+
+def mergesort(array)
+    if array.count <= 1
+        # Array of length 1 or less is always sorted
+        return array
+    end
+
+    # Apply "Divide & Conquer" strategy
+
+    # 1. Divide
+    mid = array.count / 2
+    part_a = mergesort array.slice(0, mid)
+    part_b = mergesort array.slice(mid, array.count - mid)
+
+    # 2. Conquer
+    array = []
+    offset_a = 0
+    offset_b = 0
+    while offset_a < part_a.count && offset_b < part_b.count
+        a = part_a[offset_a]
+        b = part_b[offset_b]
+
+        # Take the smallest of the two, and push it on our array
+        if a <= b
+            array << a
+            offset_a += 1
+        else
+            array << b
+            offset_b += 1
+        end
+    end
+
+    # There is at least one element left in either part_a or part_b (not both)
+    while offset_a < part_a.count
+        array << part_a[offset_a]
+        offset_a += 1
+    end
+
+    while offset_b < part_b.count
+        array << part_b[offset_b]
+        offset_b += 1
+    end
+
+    return array
+end
+********************************************************************************
+Palindrome 
+
+function palindrome(str) {
+//\W removes all non-alphanumeric characters, 'g' flag stands for global search 
+ var re = /[\W_]/g; 
+
+  var strLow = str.toLowerCase().replace(re, '');
+  var reverseStr = strLow.split('').reverse().join('');
+  
+  if (strLow === reverseStr) {
+    return true;
+  } else {
+    return false;
+  }
+}
+*********************************************************************************
+Factorial of a number 
+
+def factorial(num)
+	if num == 1 
+		return 1;
+	else 
+		return num * factorial(num-1);
+	end
+end
+***********************************************************************
+Fibonacci series 
+
+def fibonacci( n )
+  return  n  if ( 0..1 ).include? n
+  ( fibonacci( n - 1 ) + fibonacci( n - 2 ) )
+end
+puts fibonacci( 5 )
+# => 5
+**********************************************************************
+Prime number 
+
+require 'prime'
+def primes_smaller_than(num, res=[])
+  return res if num < 2
+  res << num if Prime.prime?(num)
+  primes_smaller_than(num - 1, res)
+end
+
+primes_smaller_than 100
+#=> [97, 89, 83, 79, 73, 71, 67, 61, 59, 53, 47, 43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2]
+*******************************************************************************
+Matrix manipulation( transponse)
+
+Matrix[[1,2], [3,4], [5,6]]
+  => 1 2
+     3 4
+     5 6
+Matrix[[1,2], [3,4], [5,6]].transpose
+  => 1 3 5
+     2 4 6
